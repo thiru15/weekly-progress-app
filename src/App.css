@@ -1,38 +1,234 @@
-.App {
-  text-align: center;
+
+.conatiner{
+    padding: 10px 150px;
+    padding-top:200px;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.question_header{
+    color: rgb(63 192 232);
+    font-size: 45px;
+    text-transform: uppercase;
+}
+.question_subtitle{
+    color:rgb(156, 155, 155);
+    font-size: 22px;
+    /* text-transform: uppercase; */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.question{
+    font-size:20px;
+}
+.question_options{
+    position: relative;
+    display: grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:20px;
+    justify-content: space-between;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.question_option{
+    width:200px;
+    height:55px;
+    background-color:#f5f5f5;
+    border-radius:50px;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    position: relative;
+    transition: all 0.5s;
 }
 
-.App-link {
-  color: #61dafb;
+
+.question_checkbox{
+    position: absolute;
+    top:28%;
+    left:8%;
+    
+    height:20px;
+    width:20px;
+}
+.question_option label{
+    font-size:25px;
+    transform: translateX(-10px);
+       text-transform: capitalize;
+}
+.question_checkbox:checked + .question_label{
+    color:white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.question_option:hover{
+    color:black;
+    background-color:rgb(0, 135, 212)
 }
+
+
+.question_grid_options{
+display: grid;
+    /* grid-template-columns:repeat(5, 1fr); */
+    gap:10px;
+    padding-left: 10px;
+
+
+}
+.question_grid_option input{
+    height:25px;
+    width:25px;
+}
+.question_grid_option{ 
+    font-size:20px;
+    display: flex;
+    align-items:center;
+    /* width:500px; */
+    gap:20px;
+    /* justify-content: space; */
+}
+
+
+.question_rounded_option{
+    width:200px;
+    height:55px;
+    background-color:#f5f5f5;
+    border-radius:50px;
+    display: flex;
+    gap:10px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    position: relative;
+    transition: all 0.5s;
+}
+
+.question_rounded_option:hover{
+    color:black;
+    background-color:rgb(0, 135, 212)
+}
+.question_rounded_label{
+    text-transform: capitalize;
+        font-size:25px;
+    transform: translateX(-10px);
+}
+
+
+.selected {
+    background-color:rgb(63 192 232);
+}
+
+
+.optional_header{
+     color: rgb(63 192 232);
+     font-size: 22px;
+}
+.optional_question{
+     font-size: 23px;
+}
+
+.optional_flex{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+.optional_input{
+       width: 100%;
+    height: 100px;
+    border: 2px solid darkblue;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.optional_input:focus{
+    border: 2px solid rgb(58, 199, 241);
+} 
+.optional_input:focus {
+    outline:none;
+} 
+
+
+.internal{
+    display: flex;
+
+}
+
+.internal_input{
+    width: 100%;
+    height: 100px;
+    border: 2px solid darkblue;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.internal div:first-child{
+    flex-basis: 50%;
+}
+
+.internal div:last-child{
+    flex-basis: 60%;
+}
+
+.submit_button{
+    width:250px;
+    height:60px;
+    border-radius: 10px;
+    font-size:25px;
+    font-weight:bold;
+    color:white;
+    background-color:rgb(76 142 210);
+    border:1px solid blue;
+}
+
+.myClassName{
+ border:2px solid blue;
+}
+
+
+.info{
+    display: flex;
+    flex-direction:column ;
+    position: absolute;
+    right: clamp(30px,10%,5%);
+    top: -45%;
+    width: 30vw;
+}
+/* 
+.info input{
+    width:300px;
+} */
+
+
+
+
+/* .question_info_options{
+    display: grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px;
+    justify-content: space-between;
+} */
+
+
+.other{
+    position: relative;
+
+}
+.other_title{
+    position: absolute;
+    top: -80%;
+}
+.other_input{
+    width: clamp(100px,400px,30vw);
+    position: absolute;
+    top:-10%;
+    /* position: relative; */
+    height: 100px;
+    border: 2px solid darkblue;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.other_input:focus{
+    outline:none;
+    border: 2px solid rgb(58, 199, 241);
+} 
