@@ -1,10 +1,14 @@
 import React, { FC, useEffect, useState } from 'react'
 import * as uuid from 'uuid';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+// import Dropdown from 'react-dropdown';
+// import 'react-dropdown/style.css';
 
 import QuestionsWithInfo from './questionsWithInfo';
 import { Question } from './questions';
+import axios from 'axios';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+// Make a request for a user with a given ID
 
 interface clients {
     addClients: any;
@@ -13,11 +17,25 @@ interface clients {
 }
 function ClientProject(props: clients) {
     const { addClients, index, removeClients } = props;
-    const options = [
-        'one', 'two', 'three'
-    ];
+    const options :any = [];
     useEffect(() => {
         console.log(index);
+        console.log("Inside UseEffect");
+        const projectAPI = async () =>{
+        await axios.get('https://sls-eus-dev-weekly-progress-api.azurewebsites.net/api/getProjects?code=bu/jqW4Q7ap2upXGVunAZjmp5XDyMFavxMOtWFnqia3a7IjX/emVZw==')
+        .then(function (response) {
+            const projects = response.data;
+            for(let project of projects){
+                options.push(project.Project)
+            }
+        })
+        .catch(function (error) {
+           
+            console.log("Failed ",error);
+        })}
+      projectAPI();  
+
+         
     }, [props.index])
     const uniqueId = uuid.v4();
     const initialState: Array<Question> = [
@@ -72,6 +90,7 @@ function ClientProject(props: clients) {
 
 
     const [questions, setQuestions] = useState(initialState);
+    const [selected, setSelected] = useState([]);
 
     const selectOnlyOne = (event: any, questionIndex: number, optionIndex: number, className: string, data: Question[]) => {
         event.preventDefault();
@@ -98,8 +117,11 @@ function ClientProject(props: clients) {
 
     return (
         <div className="quesiton_container">
+            
             <h1 className="question_header">client engagement {index != 0 && index + 1}</h1>
             <hr className="solid" />
+            <link rel="stylesheet" href="https://unpkg.com/react-bootstrap-typeahead/css/Typeahead.css"/>
+
 
             <h3 className="question_subtitle">This feedback in this section will be shared with your Personnel Manager and Project Manager and may also be shared with the Cloud Adoption Manager and Account Manager.</h3>
             <br />
@@ -113,7 +135,15 @@ function ClientProject(props: clients) {
                                 Client Project
                             </h1>
                             <div>
-                                <Dropdown options={options} value={options[0]} placeholder="Select your project" className="myClassName" />
+                            <Typeahead
+                            id="basic-example"
+                            onChange={setSelected}
+                            options={options}
+                            placeholder="Choose a state..."
+                            selected={selected}
+                            size='large'
+                            />  
+                            <br/>
                             </div>
                         </div>
                         <h4 className="question">{question.question}</h4>
@@ -140,7 +170,7 @@ function ClientProject(props: clients) {
                                 <h1 className="optional_header">Optional:</h1>
                                 <h1 className="optional_question">{optionalQuestions[questionIndex].question}</h1>
                             </div>
-                            <input type="text" className="optional_input" name={optionalQuestions[questionIndex].questionTag + "-" + index} />
+                            <textarea  className="optional_input" name={optionalQuestions[questionIndex].questionTag + "-" + index} />
                         </div>
                         <br />
 

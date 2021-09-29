@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/header';
 import Form from './components/form';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

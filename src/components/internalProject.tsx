@@ -40,7 +40,7 @@ function InternalProject() {
         )
     }
 
-    const addValue = (event: FormEvent<HTMLInputElement>) => {
+    const addValue = (event: FormEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
         (document.querySelector(`.input-internal-${uniqueId}`) as HTMLInputElement).value = (event.target as any).value;
     }
@@ -67,7 +67,7 @@ function InternalProject() {
                         </div>
                         {showMore && <div>
                             <h4 className="question">What internal projects are you currently working on?</h4>
-                            <input type="text" className="internal_input" onInput={(event) => addValue(event)} />
+                            <textarea className="internal_input" onInput={(event) => addValue(event)} />
                         </div>}
                     </div>
                 })

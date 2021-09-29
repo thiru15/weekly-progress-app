@@ -37,7 +37,7 @@ function QuestionsWithInfo(props: prop) {
         )
     }
 
-    const addValue = (event: FormEvent<HTMLInputElement>) => {
+    const addValue = (event: FormEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
         (document.querySelector(`.input-${uniqueId}`) as HTMLInputElement).value = (event.target as any).value;
     }
@@ -56,7 +56,7 @@ function QuestionsWithInfo(props: prop) {
                 }
                 {showMore && <div className="info">
                     <h1 className="question">Please provide more information: </h1>
-                    <input type="text" className="optional_input" onInput={(event) => addValue(event)} />
+                    <textarea className="optional_input" onInput={(event) => addValue(event)} />
                 </div>}
             </div>
         </div>
