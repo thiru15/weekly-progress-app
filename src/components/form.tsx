@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ClientProject from './client';
 import WeeklyProgress from './weeklyProgress';
 import * as uuid from 'uuid';
 import InternalProject from './internalProject';
+import { Report } from '../types/report';
 
 function Form() {
-    const [clients, setClients] = useState<Array<String>>([uuid.v4()])
+    const report: Array<Report> = [];
+
+    const [clients, setClients] = useState<Array<String>>([uuid.v4(),])
     const addClients = async (index: number) => {
         const newClient = [...clients, uuid.v4()];
         setClients(newClient)
@@ -19,11 +22,71 @@ function Form() {
 
         }
     }
-    // useEffect(() => {
 
-    // }, [clients])
+    const constantTags = ["weekStatus",
+        "billableWork", "internalProject",]
+    const dynamicTags = [
+        "followUpIssues",
+        "followUpOpportunities",
+        "issueDetail",
+        "opportunities",
+    ]
+    let tags: Array<string> = []
+
+
+    const generateTags = () => {
+        tags = [...constantTags]
+        clients.forEach((_, index) => {
+            dynamicTags.forEach(tag => {
+
+                tags.push(tag + "-" + index);
+            });
+        })
+    }
+
+    const formData: any = {};
+
+    const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+        generateTags();
+        event.preventDefault();
+        const target = (event.target as any).elements;
+        const data = Object.keys((event.target as any).elements).forEach(function (index) {
+
+            if (tags.includes(index)) {
+                formData[index] = (event.target as any).elements[index].value
+            }
+
+        });
+
+        console.log("🚀 ~ file: form.tsx ~ line 48 ~ Form ~ formData", formData)
+
+        clients.forEach((_, index) => {
+            console.log(formData["followUp-" + index], index, "followUp-" + index);
+
+            const newReport = new Report();
+            // (newReport as object)["weekStatus"]
+            newReport.weekStatus = formData["weekStatus"];
+            newReport.billableWork = formData["billableWork"];
+            newReport.internalProject = formData["internalProject"];
+            newReport.issueDetail = formData["issueDetail-" + index];
+
+            newReport.followUp = formData["followUp-" + index];
+            newReport.followUpIssues = formData["followUpIssues-" + index];
+            newReport.followUpOpportunities = formData["followUpOpportunities-" + index];
+            newReport.opportunities = formData["opportunities-" + index];
+            // newReport.=formData[tag];
+            // newReport.weekStatus=formData[tag];
+            report.push(newReport)
+        })
+        console.log("🚀 ~ file: form.tsx ~ line 48 ~ Form ~ formData", report)
+
+    }
+
+
+
+
     return (
-        <div className="conatiner">
+        <form className="conatiner" id="reports" onSubmit={submitForm}>
             <WeeklyProgress />
             <br />
 
@@ -37,7 +100,7 @@ function Form() {
             <InternalProject />
             <br />
             <button className="submit_button">submit</button>
-        </div>
+        </form>
     )
 }
 

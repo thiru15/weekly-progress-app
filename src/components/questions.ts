@@ -4,4 +4,5 @@ export interface Question {
     options: Array<string>;
     containOthers: boolean;
     showOthers: boolean;
+    questionTag?: string;
 }

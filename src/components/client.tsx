@@ -20,7 +20,6 @@ function ClientProject(props: clients) {
         console.log(index);
     }, [props.index])
     const uniqueId = uuid.v4();
-    console.log(index)
     const initialState: Array<Question> = [
         {
             id: uuid.v4(),
@@ -28,24 +27,26 @@ function ClientProject(props: clients) {
             options: ["None", "I have too much work and my deliverables at risk.", "I do not have enough information to do my job.", "I do not have the rright skills for my current engagement.", "I don not have enough experiance for muy current engagement."],
             containOthers: false,
             showOthers: false,
+            questionTag: "anyIssues"
         }
     ]
     const secondSetofQuestion: Array<Question> = [
         {
             id: uuid.v4(),
-
             question: "Have you reported an opportunity or issue that you still did not get assistance on?",
             options: ["yes", "no"],
             containOthers: false,
             showOthers: false,
+            questionTag: "followUp"
         },
         {
             id: uuid.v4(),
-
             question: "Are you working at more than one billable client engagement?",
             options: ["yes", "no"],
             containOthers: false,
             showOthers: false,
+            questionTag: "moreBillbleProject"
+
         },
     ]
     const optionalQuestions: Array<Question> = [
@@ -56,6 +57,7 @@ function ClientProject(props: clients) {
             options: [],
             containOthers: false,
             showOthers: false,
+            questionTag: "issueDetail"
         },
         {
             id: uuid.v4(),
@@ -63,6 +65,7 @@ function ClientProject(props: clients) {
             options: [],
             containOthers: false,
             showOthers: false,
+            questionTag: "opportunities"
         },
     ]
 
@@ -70,8 +73,9 @@ function ClientProject(props: clients) {
 
     const [questions, setQuestions] = useState(initialState);
 
-    const selectOnlyOne = (event: any, questionIndex: number, optionIndex: number) => {
+    const selectOnlyOne = (event: any, questionIndex: number, optionIndex: number, className: string, data: Question[]) => {
         event.preventDefault();
+        // (document.querySelector('.' + className) as HTMLInputElement).value = data[index].options[optionIndex];
         if (questionIndex == 1 && optionIndex == 0) {
             addClients(index)
         }
@@ -103,6 +107,7 @@ function ClientProject(props: clients) {
             {
                 questions.map((question, questionIndex) => {
                     return <div>
+
                         <div>
                             <h1 className="question">
                                 Client Project
@@ -113,6 +118,7 @@ function ClientProject(props: clients) {
                         </div>
                         <h4 className="question">{question.question}</h4>
                         <div className="question_grid_options">
+
                             {question.options.map((option) => {
                                 return <div className="question_grid_option">
                                     <input type="checkbox" name={option} id={option + uniqueId} className={`question-${questionIndex}-${uniqueId}`} />
@@ -126,18 +132,19 @@ function ClientProject(props: clients) {
             }
             <br />
             {
-                Array.from(Array(2).keys()).map((num: any, index) => {
+                Array.from(Array(2).keys()).map((num: any, questionIndex) => {
                     return <div>
+
                         <div className="optional_question">
                             <div className="optional_flex">
                                 <h1 className="optional_header">Optional:</h1>
-                                <h1 className="optional_question">{optionalQuestions[index].question}</h1>
+                                <h1 className="optional_question">{optionalQuestions[questionIndex].question}</h1>
                             </div>
-                            <input type="text" className="optional_input" />
+                            <input type="text" className="optional_input" name={optionalQuestions[questionIndex].questionTag + "-" + index} />
                         </div>
                         <br />
 
-                        <QuestionsWithInfo question={secondSetofQuestion[0]} index={index} />
+                        <QuestionsWithInfo question={secondSetofQuestion[0]} index={questionIndex} clientIndex={index} />
                         <br />
                         <br />
                         <br />
@@ -151,7 +158,7 @@ function ClientProject(props: clients) {
                 <h4 className="question">{secondSetofQuestion[1].question}</h4>
                 <div className="question_options">
                     {secondSetofQuestion[1].options.map((option, optionIndex: number) => {
-                        return <div onClick={(event) => selectOnlyOne(event, 1, optionIndex)} className="question_rounded_option">
+                        return <div onClick={(event) => selectOnlyOne(event, 1, optionIndex, `question-client-${1}-${uniqueId}`, secondSetofQuestion)} className="question_rounded_option">
                             <input type="checkbox" name={option} id={option} className={`question-client-${1}-${uniqueId} question_checkbox`} />
                             <label htmlFor={option + uniqueId} className="question_rounded_label">{option}</label>
                         </div>
@@ -159,34 +166,6 @@ function ClientProject(props: clients) {
                     }
                 </div>
             </div>
-            {/* {
-                optionalQuestions.map(question => {
-                    return <div className="optional_question">
-                        <div className="optional_flex">
-                            <h1 className="optional_header">Optional:</h1>
-                            <h1 className="optional_question">{question.question}</h1>
-                        </div>
-                        <input type="text" className="optional_input" />
-                    </div>
-                })
-            }
-            {
-                secondSetofQuestion.map((question, questionIndex) => {
-                    return <div>
-                        <h4 className="question">{question.question}</h4>
-                        <div className="question_options">
-                            {question.options.map((option, optionIndex: number) => {
-                                return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_rounded_option">
-                                    <input type="checkbox" name={option} id={option} className={`question-client-${questionIndex}-${uniqueId} question_checkbox`} />
-                                    <label htmlFor={option + uniqueId} className="question_rounded_label">{option}</label>
-                                </div>
-                            })
-                            }
-                        </div>
-                    </div>
-                })
-            } */}
-
         </div>
     )
 }

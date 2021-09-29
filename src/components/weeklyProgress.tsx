@@ -11,6 +11,7 @@ function WeeklyProgress() {
             options: ["great", "well", "okay", "not well", "terrible"],
             containOthers: false,
             showOthers: false,
+            questionTag: "weekStatus"
         },
         {
             id: uuid.v4(),
@@ -19,25 +20,16 @@ function WeeklyProgress() {
             options: ["yes", "no", "other"],
             containOthers: true,
             showOthers: false,
+            questionTag: "billableWork"
         }
     ]
     const [questions, setQuestions] = useState(initialState);
     const [showMore, setShowMore] = useState(false)
 
     const selectOnlyOne = (event: any, index: number, optionIndex: number) => {
-        // event.preventDefault();
+        (document.querySelector(`.input-${questions[index].id}`) as HTMLInputElement).value = questions[index].options[optionIndex];
         (index >= 0 && questions[index]?.options[optionIndex] === "other") ? setShowMore(true) : setShowMore(false)
-        // }
-        // else if (questions[index]?.containOthers) {
-        //     const newState = questions;
-        //     newState[index].showOthers = false;
-        //     setQuestions(newState)
-        //     console.log("🚀 ~ file: weeklyProgress.tsx ~ line 38 ~ selectOnlyOne ~ newState", newState[1])
-        // }
-
-
         document.querySelectorAll(`.question-${index}`).forEach((checkbox: any, index) => {
-            // console.log("pressed others", questions[index], questions[0], index - 1, optionIndex);
             if (optionIndex !== index) {
                 checkbox.checked = false;
                 checkbox.parentElement.classList.remove('selected');
@@ -58,11 +50,12 @@ function WeeklyProgress() {
             {
                 questions.map((question, questionIndex) => {
                     return <div>
+                        <input type="text" required className={`input-${question.id} hidden questionKey`} name={`${question.questionTag}`} />
                         <h4 className="question">{question.question}</h4>
                         <div className="question_options">
                             {question.options.map((option, optionIndex: number) => {
                                 return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_option">
-                                    <input type="checkbox" name={option} id={option} className={`question-${questionIndex} question_checkbox`} />
+                                    <input type="checkbox" className={`question-${questionIndex} question_checkbox`} />
                                     <label htmlFor={option} className="question_label">{option}</label>
                                 </div>
                             })

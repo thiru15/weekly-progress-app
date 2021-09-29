@@ -232,3 +232,12 @@ display: grid;
     outline:none;
     border: 2px solid rgb(58, 199, 241);
 } 
+
+input:invalid + .question {
+  background-color: pink;
+}
+
+
+.hidden{
+    display: none;
+}

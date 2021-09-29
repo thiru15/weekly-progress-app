@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import * as uuid from 'uuid';
 import { Question } from './questions';
 
@@ -11,6 +11,7 @@ function InternalProject() {
             options: ["yes", "no"],
             containOthers: false,
             showOthers: false,
+            questionTag: "internalProject"
         },
 
     ]
@@ -19,7 +20,8 @@ function InternalProject() {
     const [showMore, setShowMore] = useState(false)
 
     const selectOnlyOne = (event: any, index: number, optionIndex: number) => {
-        event.preventDefault()
+        event.preventDefault();
+        (document.querySelector(`.input-internal-${uniqueId}`) as HTMLInputElement).value = questions[index].options[optionIndex];
         optionIndex == 0 ? setShowMore(true) : setShowMore(false);
         document.querySelectorAll(`.question-${uniqueId}-${index}`).forEach((checkbox: any, index) => {
 
@@ -38,6 +40,11 @@ function InternalProject() {
         )
     }
 
+    const addValue = (event: FormEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        (document.querySelector(`.input-internal-${uniqueId}`) as HTMLInputElement).value = (event.target as any).value;
+    }
+
     return (
         <div className="quesiton_container">
             <h1 className="question_header">Internal Project</h1>
@@ -45,6 +52,7 @@ function InternalProject() {
             {
                 questions.map((question, questionIndex) => {
                     return <div className="internal">
+                        <input type="text" required className={`input-internal-${uniqueId} hidden questionKey`} name={`${question.questionTag}`} />
                         <div>
                             <h4 className="question">{question.question}</h4>
                             <div className="question_options">
@@ -59,7 +67,7 @@ function InternalProject() {
                         </div>
                         {showMore && <div>
                             <h4 className="question">What internal projects are you currently working on?</h4>
-                            <input type="text" className="internal_input" />
+                            <input type="text" className="internal_input" onInput={(event) => addValue(event)} />
                         </div>}
                     </div>
                 })
