@@ -1,20 +1,39 @@
 import React from 'react'
 import './header.css'
-import profileImage from '../assets/profilePicture.jpeg'
-import PresidioLogo from '../assets/presidio.png'
+import presidioLogo from '../assets/logo.svg'
+import profilePic from '../assets/profile.svg'
+
 function Header() {
     const Name = "Rahul R";
     const email = "rahul.r@presidio.com";
     return (
+        <div>
+            <div className="nav">
+                <div className="leftcontent">
+            <img src={presidioLogo} alt="profile_Image" className="profile_picture" />
+            &nbsp;&nbsp;&nbsp;
+            
+            <span>  Weekly Progress At Presidio</span>
+            </div>
+            <div className="rightcontent">
+            <span>JD</span>
+            </div>
+
+            </div>
         <div className="header">
             <div className="header_info">
-                <img src={profileImage} alt="profile_Image" className="profile_picture" />
-                <div >
-                    <h1>Hello, {Name}</h1>
-                    <h1>{email}</h1>
-                </div>
+                <div className="leftcontent">
+                <img src={profilePic} alt="profile_Image" className="profile_picture" />
+                &nbsp;&nbsp;&nbsp;
+                    <h3>Hello, {Name} !</h3>
+                    </div>
+               
             </div>
-            <img src={PresidioLogo} alt="presidio" className="presidio_logo" />
+            <div>    
+                 <b>{email}</b>
+                </div>
+    
+        </div>
         </div>
     )
 }
