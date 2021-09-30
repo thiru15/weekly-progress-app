@@ -55,6 +55,7 @@ function InternalProject() {
                         <input type="text" required className={`input-internal-${uniqueId} hidden questionKey`} name={`${question.questionTag}`} />
                         <div>
                             <h4 className="question">{question.question}</h4>
+                            <br />
                             <div className="question_options">
                                 {question.options.map((option, optionIndex: number) => {
                                     return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_option">

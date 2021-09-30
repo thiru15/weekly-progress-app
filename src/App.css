@@ -30,29 +30,31 @@
 .question_option{
     width:200px;
     height:55px;
-    background-color:#f5f5f5;
+    background-color:#E2EAF3    ;
     border-radius:50px;
  
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    border: 1px solid;
+    /* border: 1px solid; */
     position: relative;
+    /* transform:translateX(-20px); */
     transition: all 0.5s;
 }
 
 
 .question_checkbox{
     position: absolute;
-    top:28%;
-    left:8%;
+    top:33%;
+    left:12%;
     
     height:20px;
     width:20px;
 }
 .question_option label{
     font-size:25px;
-    transform: translateX(-10px);
+   position: absolute;
+    left: 32%;
        text-transform: capitalize;
 }
 .question_checkbox:checked + .question_label{
@@ -63,7 +65,7 @@
 
 .question_option:hover{
     color:black;
-    background-color:rgb(0, 135, 212)
+    background-color:#AEC0D1;
 }
 
 
@@ -92,30 +94,32 @@ display: grid;
 .question_rounded_option{
     width:200px;
     height:55px;
-    background-color:#f5f5f5;
+    background-color:#E2EAF3    ;
     border-radius:50px;
+ 
     display: flex;
-    gap:10px;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    border: 1px solid;
+    /* border: 1px solid; */
     position: relative;
+    /* transform:translateX(-20px); */
     transition: all 0.5s;
 }
 
 .question_rounded_option:hover{
     color:black;
-    background-color:rgb(0, 135, 212)
+    background-color:#AEC0D1;
 }
 .question_rounded_label{
-    text-transform: capitalize;
-        font-size:25px;
-    transform: translateX(-10px);
+     font-size:25px;
+   position: absolute;
+    left: 32%;
+       text-transform: capitalize;
 }
 
 
 .selected {
-    background-color:rgb(63 192 232);
+    background-color:#0082C1;
 }
 
 
@@ -136,7 +140,9 @@ display: grid;
 .optional_input{
        width: 100%;
     height: 100px;
-    border: 2px solid darkblue;
+    border: 2px solid #E2EAF3;
+
+
     border-radius: 10px;
     overflow: hidden;
 }
@@ -156,7 +162,7 @@ display: grid;
 .internal_input{
     width: 100%;
     height: 100px;
-    border: 2px solid darkblue;
+    border: 2px solid #E2EAF3;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -170,14 +176,14 @@ display: grid;
 }
 
 .submit_button{
-    width:250px;
+    width:100%;
     height:60px;
     border-radius: 10px;
     font-size:25px;
     font-weight:bold;
     color:white;
-    background-color:rgb(76 142 210);
-    border:1px solid blue;
+text-transform: uppercase;
+    background-color:#009AC7;
 }
 
 .myClassName{
@@ -233,11 +239,14 @@ display: grid;
     border: 2px solid rgb(58, 199, 241);
 } 
 
-input:invalid + .question {
+/* input:invalid + .question {
   background-color: pink;
-}
+} */
 
 
 .hidden{
     display: none;
 }
+
+
+

@@ -146,6 +146,7 @@ function ClientProject(props: clients) {
                             <br/>
                             </div>
                         </div>
+                        <br /> 
                         <h4 className="question">{question.question}</h4>
                         <div className="question_grid_options">
 
@@ -157,6 +158,7 @@ function ClientProject(props: clients) {
                             })
                             }
                         </div>
+                        <br />
                     </div>
                 })
             }
@@ -177,8 +179,7 @@ function ClientProject(props: clients) {
                         <QuestionsWithInfo question={secondSetofQuestion[0]} index={questionIndex} clientIndex={index} />
                         <br />
                         <br />
-                        <br />
-                        <br />
+
                     </div>
                 })
             }
@@ -186,6 +187,7 @@ function ClientProject(props: clients) {
             <br />
             <div>
                 <h4 className="question">{secondSetofQuestion[1].question}</h4>
+                <br />
                 <div className="question_options">
                     {secondSetofQuestion[1].options.map((option, optionIndex: number) => {
                         return <div onClick={(event) => selectOnlyOne(event, 1, optionIndex, `question-client-${1}-${uniqueId}`, secondSetofQuestion)} className="question_rounded_option">
