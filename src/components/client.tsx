@@ -152,7 +152,8 @@ function ClientProject(props: clients) {
 
                             {question.options.map((option) => {
                                 return <div className="question_grid_option">
-                                    <input type="checkbox" name={option} id={option + uniqueId} className={`question-${questionIndex}-${uniqueId}`} />
+                                    <input type="checkbox" name={option} id={option + uniqueId} className={`question-${questionIndex}-${uniqueId} `} />
+
                                     <label htmlFor={option + uniqueId} className="question_grid_label">{option}</label>
                                 </div>
                             })
@@ -191,7 +192,8 @@ function ClientProject(props: clients) {
                 <div className="question_options">
                     {secondSetofQuestion[1].options.map((option, optionIndex: number) => {
                         return <div onClick={(event) => selectOnlyOne(event, 1, optionIndex, `question-client-${1}-${uniqueId}`, secondSetofQuestion)} className="question_rounded_option">
-                            <input type="checkbox" name={option} id={option} className={`question-client-${1}-${uniqueId} question_checkbox`} />
+                            <input type="checkbox" name={option} id={option} className={`question-client-${1}-${uniqueId} question_checkbox checkbox__input`} />
+                            <span className="checkbox__inner"></span>
                             <label htmlFor={option + uniqueId} className="question_rounded_label">{option}</label>
                         </div>
                     })

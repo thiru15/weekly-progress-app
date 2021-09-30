@@ -55,8 +55,9 @@ function WeeklyProgress() {
                         <br />
                         <div className="question_options">
                             {question.options.map((option, optionIndex: number) => {
-                                return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_option">
-                                    <input type="checkbox" className={`question-weekly-${questionIndex} question_checkbox `} id={option + question.id} />
+                                return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_option checkbox">
+                                    <input type="checkbox" className={`question-weekly-${questionIndex} question_checkbox checkbox__input`} id={option + question.id} />
+                                    <span className="checkbox__inner"></span>
                                     <label htmlFor={option + question.id} className="question_label">{option}</label>
                                 </div>
                             })

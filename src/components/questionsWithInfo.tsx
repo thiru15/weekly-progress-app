@@ -50,7 +50,8 @@ function QuestionsWithInfo(props: prop) {
                 <input type="text" required className={`input-${uniqueId} hidden questionKey`} name={`${questionKey[index]}-${clientIndex}`} />
                 {question.options.map((option, optionIndex: number) => {
                     return <div onClick={(event) => selectOnlyOne(event, index + 2, optionIndex)} className="question_rounded_option ">
-                        <input type="checkbox" name={option} id={option} className={`question-info-${index + 2}-${uniqueId} question_checkbox`} />
+                        <input type="checkbox" name={option} id={option} className={`question-info-${index + 2}-${uniqueId} question_checkbox checkbox__input`} />
+                        <span className="checkbox__inner"></span>
                         <label htmlFor={option + uniqueId} className="question_rounded_label">{option}</label>
                     </div>
                 })
