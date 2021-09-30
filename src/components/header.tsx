@@ -22,7 +22,7 @@ function Header() {
             </div>
         <div className="header">
             <div className="header_info">
-                <div className="leftcontent">
+                <div className="leftcontent1">
                 <img src={profilePic} alt="profile_Image" className="profile_picture" />
                 &nbsp;&nbsp;&nbsp;
                     <h3>Hello, {Name} !</h3>
