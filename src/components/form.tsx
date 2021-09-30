@@ -96,10 +96,12 @@ function Form() {
                 })
             }
             <br />
+            <br />
 
             <InternalProject />
             <br />
-            <button className="submit_button">submit</button>
+            <br />
+            <button className="submit_button">submit report</button>
         </form>
     )
 }

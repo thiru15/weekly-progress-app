@@ -45,6 +45,7 @@ function QuestionsWithInfo(props: prop) {
     return (
         <div >
             <h4 className="question">{question.question}</h4>
+            <br />
             <div className="question_options">
                 <input type="text" required className={`input-${uniqueId} hidden questionKey`} name={`${questionKey[index]}-${clientIndex}`} />
                 {question.options.map((option, optionIndex: number) => {
