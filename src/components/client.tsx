@@ -17,17 +17,20 @@ interface clients {
 }
 function ClientProject(props: clients) {
     const { addClients, index, removeClients } = props;
-    const options :any = [];
+    const [options, setOptions] = useState([]);
     useEffect(() => {
-        console.log(index);
-        console.log("Inside UseEffect");
+        const projectArr :any = []
         const projectAPI = async () =>{
         await axios.get('https://sls-eus-dev-weekly-progress-api.azurewebsites.net/api/getProjects?code=bu/jqW4Q7ap2upXGVunAZjmp5XDyMFavxMOtWFnqia3a7IjX/emVZw==')
         .then(function (response) {
             const projects = response.data;
             for(let project of projects){
-                options.push(project.Project)
+                
+                
+                projectArr.push(project.Project)
+
             }
+            setOptions(projectArr)
         })
         .catch(function (error) {
            
@@ -139,9 +142,10 @@ function ClientProject(props: clients) {
                             id="basic-example"
                             onChange={setSelected}
                             options={options}
-                            placeholder="Choose a state..."
+                            placeholder="Choose a Project..."
                             selected={selected}
                             size='large'
+                            className='typeahead'
                             />  
                             <br/>
                             </div>
