@@ -59,7 +59,8 @@ function InternalProject() {
                             <div className="question_options">
                                 {question.options.map((option, optionIndex: number) => {
                                     return <div onClick={(event) => selectOnlyOne(event, questionIndex, optionIndex)} className="question_option">
-                                        <input type="checkbox" name={option} id={option} className={`question-${uniqueId}-${questionIndex} question_checkbox`} />
+                                        <input type="checkbox" name={option} id={option} className={`question-${uniqueId}-${questionIndex} question_checkbox checkbox__input`} />
+                                        <span className="checkbox__inner"></span>
                                         <label htmlFor={option} className="question_label">{option}</label>
                                     </div>
                                 })

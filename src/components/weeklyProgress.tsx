@@ -3,7 +3,8 @@ import * as uuid from 'uuid';
 import { Question } from './questions';
 
 
-function WeeklyProgress() {
+function WeeklyProgress(props: { containClient: any }) {
+
     const initialState: Array<Question> = [
         {
             id: uuid.v4(),
@@ -17,7 +18,7 @@ function WeeklyProgress() {
             id: uuid.v4(),
 
             question: "Are you currently booked at a billable client engagement?",
-            options: ["yes", "no", "other"],
+            options: ["yes", "no"],
             containOthers: true,
             showOthers: false,
             questionTag: "billableWork"
@@ -27,6 +28,7 @@ function WeeklyProgress() {
     const [showMore, setShowMore] = useState(false)
 
     const selectOnlyOne = (event: any, index: number, optionIndex: number) => {
+        props.containClient(index, optionIndex);
         (document.querySelector(`.input-${questions[index].id}`) as HTMLInputElement).value = questions[index].options[optionIndex];
         (index >= 0 && questions[index]?.options[optionIndex] === "other") ? setShowMore(true) : setShowMore(false)
         document.querySelectorAll(`.question-weekly-${index}`).forEach((checkbox: any, index) => {
@@ -62,7 +64,7 @@ function WeeklyProgress() {
                                 </div>
                             })
                             }
-                            {
+                            {/* {
 
                                 showMore && questionIndex == 1 && <div className="other">
                                     <h1 className="question other_title">others:</h1>
@@ -70,7 +72,7 @@ function WeeklyProgress() {
                                 </div>
 
 
-                            }
+                            } */}
                         </div>
                         <br />
                         <br />

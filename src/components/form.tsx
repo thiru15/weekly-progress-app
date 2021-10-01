@@ -8,12 +8,11 @@ import { Report } from '../types/report';
 function Form() {
     const report: Array<Report> = [];
 
-    const [clients, setClients] = useState<Array<String>>([uuid.v4(),])
+    const [clients, setClients] = useState<Array<String>>([uuid.v4()])
     const addClients = async (index: number) => {
         const newClient = [...clients, uuid.v4()];
         setClients(newClient)
 
-        // console.log(clients)
     }
     const removeClients = (index: number) => {
         if (index + 1 < clients.length) {
@@ -23,9 +22,14 @@ function Form() {
         }
     }
 
+    const containClient = (questionNum: number, option: number) => {
+        (questionNum === 1) && (option == 0) ? setClients([uuid.v4()]) : setClients([])
+    }
+
     const constantTags = ["weekStatus",
         "billableWork", "internalProject",]
     const dynamicTags = [
+        "anyIssues",
         "followUpIssues",
         "followUpOpportunities",
         "issueDetail",
@@ -50,6 +54,7 @@ function Form() {
         generateTags();
         event.preventDefault();
         const target = (event.target as any).elements;
+
         const data = Object.keys((event.target as any).elements).forEach(function (index) {
 
             if (tags.includes(index)) {
@@ -58,10 +63,10 @@ function Form() {
 
         });
 
-        console.log("🚀 ~ file: form.tsx ~ line 48 ~ Form ~ formData", formData)
+        // console.log("🚀 ~ file: form.tsx ~ line 48 ~ Form ~ formData", formData)
 
         clients.forEach((_, index) => {
-            console.log(formData["followUp-" + index], index, "followUp-" + index);
+            // console.log(formData["followUp-" + index], index, "followUp-" + index);
 
             const newReport = new Report();
             // (newReport as object)["weekStatus"]
@@ -69,7 +74,8 @@ function Form() {
             newReport.billableWork = formData["billableWork"];
             newReport.internalProject = formData["internalProject"];
             newReport.issueDetail = formData["issueDetail-" + index];
-
+            newReport.anyIssues = formData["anyIssues-" + index];
+            console.log(formData["anyIssues-" + index], index)
             newReport.followUp = formData["followUp-" + index];
             newReport.followUpIssues = formData["followUpIssues-" + index];
             newReport.followUpOpportunities = formData["followUpOpportunities-" + index];
@@ -78,7 +84,7 @@ function Form() {
             // newReport.weekStatus=formData[tag];
             report.push(newReport)
         })
-        console.log("🚀 ~ file: form.tsx ~ line 48 ~ Form ~ formData", report)
+        console.log(report)
 
     }
 
@@ -87,7 +93,7 @@ function Form() {
 
     return (
         <form className="conatiner" id="reports" onSubmit={submitForm}>
-            <WeeklyProgress />
+            <WeeklyProgress containClient={containClient} />
             <br />
 
             {

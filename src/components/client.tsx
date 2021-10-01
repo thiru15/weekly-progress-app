@@ -19,11 +19,20 @@ function ClientProject(props: clients) {
     const { addClients, index, removeClients } = props;
     const options :any = [];
     useEffect(() => {
-        console.log(index);
-        console.log("Inside UseEffect");
+        // console.log(index);
+        // console.log("Inside UseEffect");
         const projectAPI = async () =>{
-        await axios.get('https://sls-eus-dev-weekly-progress-api.azurewebsites.net/api/getProjects?code=bu/jqW4Q7ap2upXGVunAZjmp5XDyMFavxMOtWFnqia3a7IjX/emVZw==')
+
+            await axios.get('https://sls-eus-dev-weekly-progress-api.azurewebsites.net/api/getProjects?code=bu/jqW4Q7ap2upXGVunAZjmp5XDyMFavxMOtWFnqia3a7IjX/emVZw==',
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }
+            )
         .then(function (response) {
+            console.log("🚀 ~ file: client.tsx ~ line 34 ~ response", response)
+
             const projects = response.data;
             for(let project of projects){
                 options.push(project.Project)
@@ -70,7 +79,6 @@ function ClientProject(props: clients) {
     const optionalQuestions: Array<Question> = [
         {
             id: uuid.v4(),
-
             question: "Explain in more detail about the issues you are experiencing at your client engagement.",
             options: [],
             containOthers: false,
@@ -115,12 +123,27 @@ function ClientProject(props: clients) {
         )
     }
 
+
+    const getIssues = (event: any) => {
+        // event.preventDefault()
+        let newIssues = ""
+        document.querySelectorAll(`.Issues`).forEach((input: any) => {
+            if (input.checked) {
+                newIssues += input.name + "-";
+            }
+        });
+        newIssues = newIssues.slice(0, newIssues.length - 1);
+        (document.querySelector(`.input-issues-${uniqueId}`) as HTMLInputElement).value = newIssues;
+        console.log((document.querySelector(`.input-issues-${uniqueId}`) as HTMLInputElement).value, document.querySelector(`.input-issues-${uniqueId}`));
+
+    }
+
     return (
         <div className="quesiton_container">
             
             <h1 className="question_header">client engagement {index != 0 && index + 1}</h1>
             <hr className="solid" />
-            <link rel="stylesheet" href="https://unpkg.com/react-bootstrap-typeahead/css/Typeahead.css"/>
+
 
 
             <h3 className="question_subtitle">This feedback in this section will be shared with your Personnel Manager and Project Manager and may also be shared with the Cloud Adoption Manager and Account Manager.</h3>
@@ -149,11 +172,10 @@ function ClientProject(props: clients) {
                         <br /> 
                         <h4 className="question">{question.question}</h4>
                         <div className="question_grid_options">
-
+                            <input type="text" required className={`input-issues-${uniqueId} hidden questionKey`} name={`${question.questionTag}-${index}`} />
                             {question.options.map((option) => {
-                                return <div className="question_grid_option">
-                                    <input type="checkbox" name={option} id={option + uniqueId} className={`question-${questionIndex}-${uniqueId} `} />
-
+                                return <div className="question_grid_option" onClick={getIssues}>
+                                    <input type="checkbox" name={option} id={option + uniqueId} className={`question-${questionIndex}-${uniqueId} Issues`} />
                                     <label htmlFor={option + uniqueId} className="question_grid_label">{option}</label>
                                 </div>
                             })
@@ -200,6 +222,7 @@ function ClientProject(props: clients) {
                     }
                 </div>
             </div>
+            <br />
         </div>
     )
 }
